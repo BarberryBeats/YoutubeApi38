@@ -9,8 +9,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import kg.geektech.youtubeapi38.base.BaseActivity
 import kg.geektech.youtubeapi38.databinding.ActivityPlaylistBinding
+import kg.geektech.youtubeapi38.ext.makeToast
 import kg.geektech.youtubeapi38.network.NetworkConnection
+import kg.geektech.youtubeapi38.network.result.Status
 import kg.geektech.youtubeapi38.ui.playlist_detail.PlaylistDetailActivity
+
 class PlaylistActivity : BaseActivity<PlaylistsViewModel, ActivityPlaylistBinding>() {
 
     private lateinit var adapter: PlaylistAdapter
@@ -28,8 +31,25 @@ class PlaylistActivity : BaseActivity<PlaylistsViewModel, ActivityPlaylistBindin
     override fun initViewModel() {
         super.initViewModel()
 
-        viewModel.playlists().observe(this) {
-            adapter.setPlaylist(it.items)
+        viewModel.getPlaylists().observe(this) {
+            when (it.status) {
+                Status.LOADING -> {
+                    binding.progressBar.visibility = VISIBLE
+                }
+                Status.SUCCESS -> {
+                    binding.progressBar.visibility = INVISIBLE
+                    binding.recyclerPlaylist.visibility = VISIBLE
+                    it.data?.let { it1 ->
+                        adapter.setPlaylist(it1.items)
+                    }
+
+                }
+                Status.ERROR -> {
+                    binding.progressBar.visibility = INVISIBLE
+                    makeToast(it.message.toString())
+                }
+
+            }
         }
 
         val networkConnection = NetworkConnection(applicationContext)
@@ -49,15 +69,18 @@ class PlaylistActivity : BaseActivity<PlaylistsViewModel, ActivityPlaylistBindin
         }
     }
 
+    private fun onClick(id: String, title: String, desc: String) {
+        val intent = Intent(this, PlaylistDetailActivity::class.java)
+        intent.putExtra("id", id)
+        intent.putExtra("title", title)
+        intent.putExtra("desc", desc)
+        Log.d("Ray", id)
+        startActivity(intent)
+    }
+
     override fun inflateViewBinding(inflater: LayoutInflater): ActivityPlaylistBinding {
         return ActivityPlaylistBinding.inflate(inflater)
     }
 
-    private fun onClick(id: String) {
-        val intent = Intent(this, PlaylistDetailActivity::class.java)
-        intent.putExtra("id", id)
-        Log.d("Ray", id)
-        startActivity(intent)
-    }
 
 }

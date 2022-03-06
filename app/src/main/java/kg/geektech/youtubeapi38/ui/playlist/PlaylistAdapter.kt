@@ -1,16 +1,24 @@
 package kg.geektech.youtubeapi38.ui.playlist
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kg.geektech.youtubeapi38.databinding.ItemPlaylistBinding
 import kg.geektech.youtubeapi38.ext.loadImage
 import kg.geektech.youtubeapi38.model.Items
+import kg.geektech.youtubeapi38.model.Playlist
 
-class PlaylistAdapter(private val onClick: (id: String) -> Unit) : RecyclerView.Adapter<PlaylistAdapter.ViewHolder>() {
+class PlaylistAdapter(private val onClick: (id: String, title: String, desc: String) -> Unit) :
+    RecyclerView.Adapter<PlaylistAdapter.ViewHolder>() {
 
 
     private var playlist = ArrayList<Items>()
+
+    fun setPlaylist(playlist: ArrayList<Items>) {
+        this.playlist = playlist
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistAdapter.ViewHolder {
         val binding =
@@ -24,10 +32,6 @@ class PlaylistAdapter(private val onClick: (id: String) -> Unit) : RecyclerView.
 
     override fun getItemCount(): Int = playlist.size
 
-    fun setPlaylist(playlist: ArrayList<Items>) {
-        this.playlist = playlist
-    }
-
 
     inner class ViewHolder(private val binding: ItemPlaylistBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -35,11 +39,19 @@ class PlaylistAdapter(private val onClick: (id: String) -> Unit) : RecyclerView.
             binding.apply {
                 tvTitle.text = playlist.snippet.title
                 tvDescription.text = playlist.snippet.description
+                Log.d("Ray", playlist.id)
                 playlist.snippet.thumbnails.default.url?.let { ivPlaylist.loadImage(it) }
                 tvPlaylistName.text = playlist.snippet.channelTitle
 
                 itemView.setOnClickListener {
-                    onClick(playlist.id)
+                    playlist.snippet.title?.let { it1 ->
+                        playlist.snippet.description?.let { it2 ->
+                            onClick(
+                                playlist.id,
+                                it1, it2
+                            )
+                        }
+                    }
                 }
             }
         }

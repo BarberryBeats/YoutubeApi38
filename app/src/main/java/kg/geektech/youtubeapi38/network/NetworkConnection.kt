@@ -41,7 +41,7 @@ class NetworkConnection(private val context: Context): LiveData<Boolean>(){
     override fun onInactive() {
         super.onInactive()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            connectivityManager.unregisterNetworkCallback(connectivityManagerCallBack())
+
         } else{
             context.unregisterReceiver(networkReceiver)
         }

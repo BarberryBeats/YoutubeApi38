@@ -4,14 +4,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kg.geektech.youtubeapi38.databinding.ItemPlaylistDetailBinding
+import kg.geektech.youtubeapi38.ext.loadImage
 import kg.geektech.youtubeapi38.model.Items
 
 class PlaylistDetailAdapter : RecyclerView.Adapter<PlaylistDetailAdapter.ViewHolder>() {
 
-    private var playlistDetail = ArrayList<Items>();
+    private var playlistDetail = ArrayList<Items>()
 
-    fun setPlaylist(playlist: ArrayList<Items>){
+    fun setPlaylist(playlist: ArrayList<Items>) {
         playlistDetail = playlist
+        notifyDataSetChanged()
     }
 
 
@@ -31,7 +33,11 @@ class PlaylistDetailAdapter : RecyclerView.Adapter<PlaylistDetailAdapter.ViewHol
     inner class ViewHolder(private val binding: ItemPlaylistDetailBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(playlist: Items) {
-
+            binding.apply {
+                tvTitleDetail.text = playlist.snippet.title
+                imgDetail.loadImage(playlist.snippet.thumbnails.default.url!!)
+                tvDate.text = playlist.snippet.publishedAt.toString()
+            }
         }
     }
 

@@ -12,14 +12,14 @@
         android:layout_height="80dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        app:cardCornerRadius="8dp"
+        app:cardCornerRadius="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/iv_playlist"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="74dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_launcher_background"
             app:layout_constraintStart_toStartOf="parent"

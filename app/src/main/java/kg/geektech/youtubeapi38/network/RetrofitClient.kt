@@ -1,6 +1,7 @@
-package kg.geektech.youtubeapi38.remote
+package kg.geektech.youtubeapi38.network
 
 import kg.geektech.youtubeapi38.BuildConfig.BASE_URL
+import kg.geektech.youtubeapi38.remote.ApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

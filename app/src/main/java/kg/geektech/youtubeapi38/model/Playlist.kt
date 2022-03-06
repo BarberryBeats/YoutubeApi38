@@ -18,6 +18,7 @@ data class Items(
     val etag: String,
     val id: String,
     val snippet: Snippet,
+    val contentDetails: ContentDetails,
 
     )
 
@@ -40,6 +41,10 @@ data class Default(
 
 data class PageInfo(
     val totalResults: Int? = null
+)
+
+data class ContentDetails(
+    val itemCount: Int? = null
 )
 
 

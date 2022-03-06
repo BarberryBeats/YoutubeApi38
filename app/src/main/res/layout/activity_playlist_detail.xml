@@ -7,7 +7,11 @@
     android:fitsSystemWindows="true"
     tools:context=".ui.playlist_detail.PlaylistDetailActivity">
 
-
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/container_of_all"
+        android:fitsSystemWindows="true">
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
@@ -91,6 +95,14 @@
                     android:text="@string/in_this_series_we_break_down_the_impact_of_displacement_instability_violence_and_trauma_in_children_and_offer_exercises_to_support_children_in_their_healing_journey"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/tv_videos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/video_series"
+                    android:layout_gravity="bottom"
+                    android:textColor="@color/black"/>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -120,6 +132,11 @@
             android:layout_gravity="center"
             android:visibility="invisible" />
 
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
     <RelativeLayout
         android:id="@+id/no_internet_layout"
         android:layout_width="match_parent"
@@ -127,8 +144,7 @@
         android:visibility="invisible">
         <include
             android:id="@+id/no_internet_check"
-            layout="@layout/no_internet"
-            />
+            layout="@layout/no_internet" />
     </RelativeLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

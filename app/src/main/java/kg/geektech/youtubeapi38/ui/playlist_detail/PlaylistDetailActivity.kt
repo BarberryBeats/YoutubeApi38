@@ -6,6 +6,7 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import kg.geektech.youtubeapi38.`object`.Constant
 import kg.geektech.youtubeapi38.base.BaseActivity
 import kg.geektech.youtubeapi38.databinding.ActivityPlaylistDetailBinding
 import kg.geektech.youtubeapi38.ext.makeToast
@@ -24,12 +25,15 @@ class PlaylistDetailActivity :
         return ActivityPlaylistDetailBinding.inflate(inflater)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun initView() {
         super.initView()
         adapter = PlaylistDetailAdapter()
         binding.recyclerPlaylistDetail.layoutManager = LinearLayoutManager(this)
         binding.recyclerPlaylistDetail.adapter = adapter
-
+        binding.tvTitle.text = intent.getStringExtra(Constant.TITLE)
+        binding.tvVideos.text = intent.getStringExtra(Constant.VIDEOS) + "videos series"
+        binding.tvDescription.text = intent.getStringExtra(Constant.DESCRIPTION)
     }
 
     override fun initListener() {
@@ -46,12 +50,12 @@ class PlaylistDetailActivity :
         networkConnection.observe(this) { isConnected ->
             if (isConnected) {
                 binding.apply {
-
+                    containerOfAll.visibility = VISIBLE
                     noInternetLayout.visibility = INVISIBLE
                 }
             } else {
                 binding.apply {
-
+                    containerOfAll.visibility = INVISIBLE
                     noInternetLayout.visibility = VISIBLE
                 }
 

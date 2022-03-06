@@ -7,6 +7,7 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import kg.geektech.youtubeapi38.`object`.Constant
 import kg.geektech.youtubeapi38.base.BaseActivity
 import kg.geektech.youtubeapi38.databinding.ActivityPlaylistBinding
 import kg.geektech.youtubeapi38.ext.makeToast
@@ -17,6 +18,9 @@ import kg.geektech.youtubeapi38.ui.playlist_detail.PlaylistDetailActivity
 class PlaylistActivity : BaseActivity<PlaylistsViewModel, ActivityPlaylistBinding>() {
 
     private lateinit var adapter: PlaylistAdapter
+
+
+
     override val viewModel: PlaylistsViewModel by lazy {
         ViewModelProvider(this)[PlaylistsViewModel::class.java]
     }
@@ -69,11 +73,12 @@ class PlaylistActivity : BaseActivity<PlaylistsViewModel, ActivityPlaylistBindin
         }
     }
 
-    private fun onClick(id: String, title: String, desc: String) {
+    private fun onClick(id: String, title: String, desc: String, videos: String) {
         val intent = Intent(this, PlaylistDetailActivity::class.java)
-        intent.putExtra("id", id)
-        intent.putExtra("title", title)
-        intent.putExtra("desc", desc)
+        intent.putExtra(Constant.ID, id)
+        intent.putExtra(Constant.TITLE, title)
+        intent.putExtra(Constant.DESCRIPTION, desc)
+        intent.putExtra(Constant.VIDEOS, videos)
         Log.d("Ray", id)
         startActivity(intent)
     }
